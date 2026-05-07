@@ -52,3 +52,13 @@ Impressão 3D com filamento PLA+
 Soldagem eletrônica
 Montagem de matriz de teclado
 Modelagem 3D customizada
+
+🚀 Potencial de Expansão
+O MacroPad pode ser adaptado para diversas aplicações além do carrinho robótico:
+
+🏠 Automação residencial — controlar luzes, tomadas, persianas
+🎮 Controle de jogos — atalhos e macros customizados
+🎬 Edição de vídeo — shortcuts no Premiere, DaVinci
+📺 Streaming — controles para OBS, cenas, alertas
+🤖 Robótica — qualquer dispositivo com ESP32
+🌐 Sistemas IoT — integração com Home Assistant, MQTT
