@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MacroPad 3×3 — ESP32 Wi-Fi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursor-follower"></div>
+
+  <div class="deco deco-cross" style="top:120px;left:60px;">✕</div>
+  <div class="deco deco-plus"  style="top:200px;right:140px;">+</div>
+  <div class="deco deco-star"  style="top:70px;right:320px;">★</div>
+  <div class="deco deco-tri"   style="top:640px;left:120px;"></div>
+  <div class="deco deco-circle" style="bottom:30%;right:5%;"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">MACRO<span class="logo-dot">PAD</span></div>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#como-funciona">Como Funciona</a></li>
+      <li><a href="#specs">Hardware</a></li>
+      <li><a href="#galeria">Galeria</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#contato" class="btn-nav">FALAR COMIGO</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <span class="badge reveal-fade">📡 ESP32-S2 · WI-FI · MATRIZ 3×3</span>
+      <h1 class="hero-title reveal-up">MACRO<br /><span class="hero-accent">PAD</span></h1>
+      <p class="hero-sub reveal-up delay-1">
+        Teclado macro 3×3 feito à mão.<br />
+        Controla qualquer dispositivo via Wi-Fi — incluindo um carrinho robótico.
+      </p>
+      <div class="hero-cta reveal-up delay-2">
+        <a href="#como-funciona" class="btn-primary">→ VER O PROJETO</a>
+        <span class="hero-stat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          9 botões programáveis
+        </span>
+      </div>
+    </div>
+    <div class="hero-visual reveal-right">
+      <div class="mockup-stack">
+        <div class="mockup-card card-back">
+          <img src="img/viradodecabeça.jpeg" alt="Estrutura interna" loading="lazy" />
+        </div>
+        <div class="mockup-card card-front">
+          <img src="img/naMAO.jpeg" alt="Macropad na mão" loading="lazy" />
+          <div class="mockup-label">// em uso</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>SCROLL</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="sobre" id="sobre">
+    <div class="wave-top">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" fill="var(--bg-deep)"/></svg>
+    </div>
+    <div class="container">
+      <div class="sobre-grid">
+        <div class="sobre-text reveal-left">
+          <p class="section-eyebrow">// SOBRE O PROJETO</p>
+          <h2 class="section-title">Eletrônica, código<br />e <em>impressão 3D</em><br />num só lugar.</h2>
+          <p class="body-text">
+            O MacroPad 3×3 foi desenvolvido com uma placa <strong>ESP32-S2 Mini</strong> e funciona como um teclado programável capaz de enviar comandos via <strong>Wi-Fi</strong> para controlar diferentes sistemas — incluindo um carrinho robótico.
+          </p>
+          <p class="body-text">
+            A proposta é unir eletrônica, programação, design 3D e automação em um único dispositivo. Toda a estrutura — carcaça, keycaps e organização interna — foi criada de forma totalmente personalizada.
+          </p>
+          <div class="sobre-tags">
+            <span class="tag">ESP32-S2</span>
+            <span class="tag">Wi-Fi</span>
+            <span class="tag">Matriz 3×3</span>
+            <span class="tag">Case 3D</span>
+            <span class="tag">Switches Mecânicos</span>
+            <span class="tag">Arduino IDE</span>
+            <span class="tag">C++</span>
+            <span class="tag">IoT</span>
+          </div>
+        </div>
+        <div class="sobre-img-wrap reveal-right">
+          <img src="img/45grau.png" alt="Macropad em 45 graus" class="sobre-img" loading="lazy" />
+          <div class="img-badge">3×3</div>
+        </div>
+      </div>
+    </div>
+    <div class="wave-bottom">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,80 1440,40 L1440,80 L0,80 Z" fill="var(--bg-deep)"/></svg>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="como-funciona" id="como-funciona">
+    <div class="container">
+      <p class="section-eyebrow center reveal-fade">// COMO FUNCIONA</p>
+      <h2 class="section-title center reveal-fade">O sistema em<br /><em>duas partes.</em></h2>
+      <div class="flow-grid">
+        <div class="flow-card reveal-up">
+          <div class="flow-number">01</div>
+          <div class="flow-icon">⌨️</div>
+          <h3>MacroPad — Transmissor</h3>
+          <p>O macropad detecta qual botão foi pressionado e envia o comando via Wi-Fi instantaneamente.</p>
+          <ol class="flow-steps">
+            <li>ESP32 identifica a posição na matriz</li>
+            <li>Interpreta o comando correspondente</li>
+            <li>Envia a informação sem fio</li>
+          </ol>
+          <div class="flow-examples">
+            <span>🔼 Botão 1 → Frente</span>
+            <span>◀️ Botão 2 → Esquerda</span>
+            <span>🔔 Botão 3 → Buzina</span>
+            <span>💡 Botão 4 → LEDs</span>
+          </div>
+        </div>
+        <div class="flow-arrow reveal-fade delay-1">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 30 H50 M38 18 L50 30 L38 42" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Wi-Fi</span>
+        </div>
+        <div class="flow-card reveal-up delay-2">
+          <div class="flow-number">02</div>
+          <div class="flow-icon">🤖</div>
+          <h3>Dispositivo — Receptor</h3>
+          <p>Um segundo ESP32 recebe os comandos e controla o dispositivo físico em tempo real.</p>
+          <ol class="flow-steps">
+            <li>Recebe o pacote Wi-Fi</li>
+            <li>Interpreta o comando</li>
+            <li>Aciona o driver de motor</li>
+          </ol>
+          <div class="flow-examples">
+            <span>🚗 Carrinho robótico</span>
+            <span>🏠 Automação residencial</span>
+            <span>🎮 Controle de jogos</span>
+            <span>🎬 Edição de vídeo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section class="specs" id="specs">
+    <div class="wave-top">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,0 L0,0 Z" fill="var(--bg-mid)"/></svg>
+    </div>
+    <div class="container" style="padding-top:2rem;padding-bottom:2rem;">
+      <p class="section-eyebrow center reveal-fade">// TECNOLOGIAS</p>
+      <h2 class="section-title center reveal-fade">O que tem<br />dentro?</h2>
+      <div class="tech-cols">
+        <div class="tech-col reveal-up">
+          <h4 class="tech-col-title">⚙️ Hardware</h4>
+          <ul class="tech-list">
+            <li><span class="tech-dot"></span>ESP32-S2 Mini</li>
+            <li><span class="tech-dot"></span>Switches mecânicos</li>
+            <li><span class="tech-dot"></span>Keycaps impressas em 3D</li>
+            <li><span class="tech-dot"></span>Driver de motor</li>
+            <li><span class="tech-dot"></span>Motores DC</li>
+            <li><span class="tech-dot"></span>Bateria</li>
+            <li><span class="tech-dot"></span>Jumpers e fios</li>
+          </ul>
+        </div>
+        <div class="tech-col reveal-up delay-1">
+          <h4 class="tech-col-title">💻 Software</h4>
+          <ul class="tech-list">
+            <li><span class="tech-dot"></span>Arduino IDE</li>
+            <li><span class="tech-dot"></span>Programação em C++</li>
+            <li><span class="tech-dot"></span>Comunicação via Wi-Fi</li>
+            <li><span class="tech-dot"></span>Controle de GPIOs</li>
+            <li><span class="tech-dot"></span>Leitura de matriz de teclado</li>
+          </ul>
+        </div>
+        <div class="tech-col reveal-up delay-2">
+          <h4 class="tech-col-title">🖨️ Fabricação</h4>
+          <ul class="tech-list">
+            <li><span class="tech-dot"></span>Impressão 3D (PLA+)</li>
+            <li><span class="tech-dot"></span>Soldagem eletrônica</li>
+            <li><span class="tech-dot"></span>Montagem de matriz de teclado</li>
+            <li><span class="tech-dot"></span>Modelagem 3D customizada</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stat-cards reveal-up delay-1">
+        <div class="stat-card"><span class="stat-num">9</span><span class="stat-label">Botões<br />programáveis</span></div>
+        <div class="stat-card"><span class="stat-num">3×3</span><span class="stat-label">Matriz<br />de teclas</span></div>
+        <div class="stat-card"><span class="stat-num">Wi-Fi</span><span class="stat-label">Comunicação<br />sem fio</span></div>
+        <div class="stat-card"><span class="stat-num">∞</span><span class="stat-label">Possibilidades<br />de uso</span></div>
+      </div>
+    </div>
+    <div class="wave-bottom">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,0 1080,80 1440,40 L1440,80 L0,80 Z" fill="var(--bg-mid)"/></svg>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="galeria" id="galeria">
+    <div class="container">
+      <p class="section-eyebrow center reveal-fade">// GALERIA</p>
+      <h2 class="section-title center reveal-fade">Todos os ângulos.</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item gi-large reveal-scale">
+          <img src="img/naMAO.jpeg" alt="Macropad na mão" loading="lazy" />
+          <div class="gallery-caption">Em uso</div>
+        </div>
+        <div class="gallery-item reveal-scale delay-1">
+          <img src="img/45grau.png" alt="Vista 45 graus" loading="lazy" />
+          <div class="gallery-caption">Vista 45°</div>
+        </div>
+        <div class="gallery-item reveal-scale delay-2">
+          <img src="img/vistalateral.png" alt="Vista lateral" loading="lazy" />
+          <div class="gallery-caption">Lateral</div>
+        </div>
+        <div class="gallery-item reveal-scale delay-1">
+          <img src="img/partedecimanadebaixo.jpeg" alt="Topo e base" loading="lazy" />
+          <div class="gallery-caption">Topo & Base</div>
+        </div>
+        <div class="gallery-item reveal-scale delay-2">
+          <img src="img/viradodecabeça.jpeg" alt="Estrutura interna" loading="lazy" />
+          <div class="gallery-caption">Estrutura interna</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <section class="stats-bar">
+    <div class="stats-track">
+      <div class="stats-inner">
+        <span>⚡ ESP32-S2</span><span class="sep">·</span>
+        <span>📡 WI-FI</span><span class="sep">·</span>
+        <span>⌨️ SWITCHES MECÂNICOS</span><span class="sep">·</span>
+        <span>🖨️ CASE 3D</span><span class="sep">·</span>
+        <span>🤖 CONTROLE ROBÓTICO</span><span class="sep">·</span>
+        <span>💡 IoT</span><span class="sep">·</span>
+        <span>🔧 HANDMADE</span><span class="sep">·</span>
+        <span>⚡ ESP32-S2</span><span class="sep">·</span>
+        <span>📡 WI-FI</span><span class="sep">·</span>
+        <span>⌨️ SWITCHES MECÂNICOS</span><span class="sep">·</span>
+        <span>🖨️ CASE 3D</span><span class="sep">·</span>
+        <span>🤖 CONTROLE ROBÓTICO</span><span class="sep">·</span>
+        <span>💡 IoT</span><span class="sep">·</span>
+        <span>🔧 HANDMADE</span><span class="sep">·</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- POTENCIAL -->
+  <section class="potencial" id="potencial">
+    <div class="container">
+      <p class="section-eyebrow center reveal-fade">// POTENCIAL DE EXPANSÃO</p>
+      <h2 class="section-title center reveal-fade">Para onde esse<br />projeto pode ir?</h2>
+      <div class="potencial-grid">
+        <div class="potencial-card reveal-scale">🏠<br /><strong>Automação<br />Residencial</strong></div>
+        <div class="potencial-card reveal-scale delay-1">🎮<br /><strong>Controle de<br />Jogos</strong></div>
+        <div class="potencial-card reveal-scale delay-2">🎬<br /><strong>Edição de<br />Vídeo</strong></div>
+        <div class="potencial-card reveal-scale delay-1">📺<br /><strong>Streaming</strong></div>
+        <div class="potencial-card reveal-scale delay-2">🤖<br /><strong>Robótica</strong></div>
+        <div class="potencial-card reveal-scale delay-3">🌐<br /><strong>Sistemas<br />IoT</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contato" id="contato">
+    <div class="container contato-inner">
+      <p class="section-eyebrow center reveal-fade">// CONTATO</p>
+      <h2 class="section-title center reveal-fade">Tem interesse<br />no <span class="hero-accent">projeto?</span></h2>
+      <p class="contato-sub reveal-fade">
+        Quer saber mais, encomendar um ou colaborar? Me manda uma mensagem.
+      </p>
+      <div class="contato-ctas reveal-up">
+        <a href="mailto:seuemail@email.com" class="btn-primary">→ MANDAR E-MAIL</a>
+        <a href="https://wa.me/5500000000000" class="btn-outline" target="_blank">WHATSAPP</a>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-logo">MACRO<span class="logo-dot">PAD</span></span>
+        <span class="footer-copy">© 2026 — Feito com ESP32, soldagem e muita curiosidade.</span>
+      </div>
+    </footer>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">✕</button>
+    <img src="" alt="" id="lightbox-img" />
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="Voltar ao topo">↑</button>
+  <script src="script.js"></script>
+</body>
+</html>
